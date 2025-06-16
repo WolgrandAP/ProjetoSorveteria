@@ -1,5 +1,7 @@
 package model;
 
+import observer.PedidoNotificador;
+import observer.PedidoObserver;
 import state.EstadoPedido;
 
 import java.util.ArrayList;
@@ -9,12 +11,25 @@ public class Pedido {
     private int id;
     private Cliente cliente;
     private List<ItemPedido> itens = new ArrayList<>();
-    private EstadoPedido estado;
+    private String estado;
     private double descontoAplicado;
+
+    private PedidoNotificador notificador = new PedidoNotificador();
+
+    public Pedido() {}
 
     public Pedido(int id, Cliente cliente) {
         this.id = id;
         this.cliente = cliente;
+    }
+
+    public void adicionarObservador(PedidoObserver p) {
+        notificador.adicionarObservador(p);
+    }
+
+    public void mudarEstado(String estadoNovo) {
+        this.estado = estadoNovo;
+        notificador.notificarObservadores("Seu pedido está em: " + estadoNovo);
     }
 
     public int getId() {
@@ -41,11 +56,11 @@ public class Pedido {
         itens.add(item);
     }
 
-    public EstadoPedido getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoPedido estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -56,4 +71,7 @@ public class Pedido {
     public void aplicarDesconto(double valor) {
         this.descontoAplicado = valor;
     }
+
+
+
 }

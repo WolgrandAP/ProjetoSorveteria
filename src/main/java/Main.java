@@ -5,7 +5,9 @@ import decorator.CoberturaDecorator;
 import decorator.SorveteSimples;
 import factory.SorveteFactory;
 import factory.TipoSorvete;
+import model.Pedido;
 import model.Sorvete;
+import observer.ClienteObserver;
 
 public class Main {
 
@@ -28,6 +30,15 @@ public class Main {
 
         System.out.println("Pedido: " + meuSorvete.getDescricao());
         System.out.println("Total: R$" + meuSorvete.getPreco());
+
+        //Exemplo teste com Observer
+        Pedido pedido = new Pedido();
+        ClienteObserver cliente = new ClienteObserver("João");
+        pedido.adicionarObservador(cliente);
+
+        pedido.mudarEstado("Preparando");
+        pedido.mudarEstado("Pronto para entrega");
+
 
     }
 
