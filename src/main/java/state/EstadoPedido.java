@@ -3,7 +3,6 @@ package state;
 import model.Pedido;
 
 public interface EstadoPedido {
-    void avancar(Pedido pedido);
-    void cancelar(Pedido pedido);
+    void avancarEstado(Pedido pedido);
     String getNomeEstado();
 }
