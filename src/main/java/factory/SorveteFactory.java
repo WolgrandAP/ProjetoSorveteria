@@ -1,26 +1,18 @@
 package factory;
 
 import model.Sorvete;
-import model.tipoSorvete.Massa;
-import model.tipoSorvete.Milkshake;
-import model.tipoSorvete.Picole;
 
 public class SorveteFactory {
-
-    public static Sorvete criarSorvete(TipoSorvete tipo) {
-        switch (tipo) {
-            case MASSA:
-                return new Massa();
-
-            case PICOLE:
-                return new Picole();
-
-            case MILKSHAKE:
-                return new Milkshake();
-
+    public static Sorvete criarSorvete(String tipo) {
+        switch (tipo.toLowerCase()) {
+            case "massa":
+                return new model.Massa();
+            case "picole":
+                return new model.Picole();
+            case "milkshake":
+                return new model.Milkshake();
             default:
-                throw new IllegalArgumentException("Tipo de sorvete inválido");
+                throw new IllegalArgumentException("Tipo inválido");
         }
     }
-
 }

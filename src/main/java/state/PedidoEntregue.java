@@ -1,16 +1,11 @@
 package state;
 
-import model.Pedido;
-
-public class PedidoEntregue implements EstadoPedido{
-
-    @Override
-    public void avancarEstado(Pedido pedido) {
+public class PedidoEntregue implements EstadoPedido {
+    public void proximo(PedidoContexto contexto) {
         System.out.println("Pedido já foi entregue.");
     }
 
-    @Override
-    public String getNomeEstado() {
-        return "Pedido entregue";
+    public String getEstado() {
+        return "Entregue";
     }
 }

@@ -1,6 +1,6 @@
 package model;
 
-public interface Sorvete {
-    String getDescricao();
-    double getPreco();
+public abstract class Sorvete {
+    public abstract String getDescricao();
+    public abstract double getPreco();
 }

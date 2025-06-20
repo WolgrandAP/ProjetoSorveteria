@@ -1,45 +1,33 @@
-import config.FilaPedidos;
-import decorator.CaldaDecorator;
-import decorator.ChantillyDecorator;
-import decorator.CoberturaDecorator;
-import decorator.SorveteSimples;
-import factory.SorveteFactory;
-import factory.TipoSorvete;
-import model.Pedido;
-import model.Sorvete;
-import observer.ClienteObserver;
+import command.PedidoCommand;
+import command.RealizarPedido;
+import facade.SorveteriaFacade;
+import observer.Cliente;
+import observer.PedidoNotifier;
+import repository.PedidoRepository;
+import state.PedidoContexto;
 
 public class Main {
-
     public static void main(String[] args) {
+        SorveteriaFacade facade = new SorveteriaFacade();
+        double preco = facade.fazerPedido("massa", true);
 
-        //Exemplo com factory
-        Sorvete s1 = SorveteFactory.criarSorvete(TipoSorvete.MASSA);
-        System.out.println(s1.getDescricao() + " - R$" + s1.getPreco());
+        Cliente cliente = new Cliente("Ana");
+        PedidoNotifier notifier = new PedidoNotifier();
+        notifier.adicionarCliente(cliente);
+        notifier.notificar("Seu pedido está sendo preparado!");
 
-        //Exemplo com singlenton
-        //FilaPedidos fila = FilaPedidos.getInstance();
-        //fila.adicionarPedido();
+        PedidoCommand cmd = new RealizarPedido();
+        cmd.executar();
+        cmd.desfazer();
 
+        PedidoContexto contexto = new PedidoContexto();
+        System.out.println("Estado atual: " + contexto.getEstadoAtual());
+        contexto.proximoEstado();
+        System.out.println("Estado atual: " + contexto.getEstadoAtual());
+        contexto.proximoEstado();
+        System.out.println("Estado atual: " + contexto.getEstadoAtual());
 
-        //Exemplo com decorator
-        Sorvete meuSorvete = new SorveteSimples();
-        meuSorvete = new CaldaDecorator(meuSorvete);
-        meuSorvete = new CoberturaDecorator(meuSorvete);
-        meuSorvete = new ChantillyDecorator(meuSorvete);
-
-        System.out.println("Pedido: " + meuSorvete.getDescricao());
-        System.out.println("Total: R$" + meuSorvete.getPreco());
-
-        //Exemplo teste com Observer
-        Pedido pedido = new Pedido();
-        ClienteObserver cliente = new ClienteObserver("João");
-        pedido.adicionarObservador(cliente);
-
-        pedido.mudarEstado("Preparando");
-        pedido.mudarEstado("Pronto para entrega");
-
-
+        PedidoRepository repo = new PedidoRepository();
+        repo.salvarPedido("Pedido de sorvete massa com desconto aplicado: R$" + preco);
     }
-
 }

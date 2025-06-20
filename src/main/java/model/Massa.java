@@ -1,12 +1,9 @@
-package model.tipoSorvete;
+package model;
 
-import model.Sorvete;
-
-public class Picole implements Sorvete {
-
+public class Massa extends Sorvete {
     @Override
     public String getDescricao() {
-        return "Picolé";
+        return "Sorvete de Massa";
     }
 
     @Override

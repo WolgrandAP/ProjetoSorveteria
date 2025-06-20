@@ -1,8 +1,6 @@
 package state;
 
-import model.Pedido;
-
 public interface EstadoPedido {
-    void avancarEstado(Pedido pedido);
-    String getNomeEstado();
+    void proximo(PedidoContexto contexto);
+    String getEstado();
 }

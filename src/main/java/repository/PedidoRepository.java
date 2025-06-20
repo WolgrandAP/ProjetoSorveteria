@@ -1,30 +1,17 @@
 package repository;
 
-import model.Pedido;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PedidoRepository {
+    private List<String> pedidos = new ArrayList<>();
 
-    private Map<String, Pedido> pedidos = new HashMap<>();
-
-    public void salvar(Pedido pedido) {
-        pedidos.put(pedido.getId(), pedido);
+    public void salvarPedido(String pedido) {
+        pedidos.add(pedido);
+        System.out.println("Pedido salvo no repositório.");
     }
 
-    public Pedido buscarPorId(String id) {
-        return pedidos.get(id);
+    public List<String> getPedidos() {
+        return pedidos;
     }
-
-    public List<Pedido> listarTodos() {
-        return new ArrayList<>(pedidos.values());
-    }
-
-    public void deletar(String id) {
-        pedidos.remove(id);
-    }
-
 }

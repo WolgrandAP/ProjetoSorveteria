@@ -1,9 +1,6 @@
-package model.tipoSorvete;
+package model;
 
-import model.Sorvete;
-
-public class Milkshake implements Sorvete {
-
+public class Milkshake extends Sorvete {
     @Override
     public String getDescricao() {
         return "Milkshake";
@@ -11,6 +8,6 @@ public class Milkshake implements Sorvete {
 
     @Override
     public double getPreco() {
-        return 9.0;
+        return 7.0;
     }
 }
