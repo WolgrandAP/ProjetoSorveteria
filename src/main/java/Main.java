@@ -1,5 +1,3 @@
-import command.PedidoCommand;
-import command.RealizarPedido;
 import decorator.Calda;
 import decorator.SorveteDecorator;
 import facade.SorveteriaFacade;
