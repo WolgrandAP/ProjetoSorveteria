@@ -19,15 +19,15 @@ public class Main {
         double precoBase = sorveteBase.getPreco();
         System.out.println("Preço base do pedido: R$" + precoBase + "\n");
 
-        System.out.println("Aplicando descontos");
+        /*System.out.println("Aplicando descontos");
         Desconto desconto1 = new DescontoFrequente();
-        Desconto desconto2 = new DescontoSazonal();
-        double precoComDesconto1 = desconto1.aplicarDesconto(precoBase);
-        double precoComDesconto2 = desconto2.aplicarDesconto(precoBase);
-        System.out.println("Cliente frequente: R$" + precoComDesconto1);
-        System.out.println("Desconto sazonal: R$" + precoComDesconto2 + "\n");
+        Desconto desconto2 = new DescontoSazonal();*/
+        /*double precoComDesconto1 = desconto1.aplicarDesconto(precoBase);
+        double precoComDesconto2 = desconto2.aplicarDesconto(precoBase);*/
+        /*System.out.println("Cliente frequente: R$" + precoComDesconto1);
+        System.out.println("Desconto sazonal: R$" + precoComDesconto2 + "\n");*/
 
-        System.out.println("Adicionando calda ao pedido");
+        System.out.println("Adicionando calda ao pedido"); //Tirar essa parte
         SorveteDecorator sorveteComCalda = new Calda(sorveteBase);
         System.out.println("Pedido com calda: " + sorveteComCalda.getDescricao());
         System.out.println("Novo preço: R$" + sorveteComCalda.getPreco() + "\n");
@@ -38,7 +38,7 @@ public class Main {
         notifier.notificar("Seu pedido foi recebido e está sendo preparado\n");
 
         PedidoManager pedidoManager = PedidoManager.getInstance();
-        pedidoManager.adicionarPedido("Pedido da " + cliente.getNome() + " : Sorvete massa com calda");
+        pedidoManager.adicionarPedido("Nome: " + cliente.getNome() + " /Pedido: " + sorveteComCalda.getDescricao());
         pedidoManager.listarPedidos();
         System.out.println();
 

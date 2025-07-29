@@ -9,3 +9,7 @@ public abstract class SorveteDecorator extends Sorvete {
         this.sorvete = sorvete;
     }
 }
+
+//Por que herda Sorvete:
+//Isso permite que um decorator possa ser tratado como um Sorvete, mantendo a interface comum
+// (muito útil para polimorfismo).

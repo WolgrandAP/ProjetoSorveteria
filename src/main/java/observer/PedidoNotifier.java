@@ -16,3 +16,6 @@ public class PedidoNotifier {
         }
     }
 }
+
+//Essa é a classe que gerencia os observadores. Ela é a "sujeita" no padrão Observer — ou seja,
+// quem notifica os outros.

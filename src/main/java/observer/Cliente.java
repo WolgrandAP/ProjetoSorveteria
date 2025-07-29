@@ -7,11 +7,13 @@ public class Cliente implements ClienteObserver {
         this.nome = nome;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public void atualizar(String mensagem) {
         System.out.println(nome + " recebeu notificação: " + mensagem);
     }
 
-    public String getNome() {
-        return nome;
-    }
+
 }
