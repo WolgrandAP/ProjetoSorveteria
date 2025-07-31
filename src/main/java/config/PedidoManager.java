@@ -1,11 +1,13 @@
 package config;
 
+import model.Pedido;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoManager {
     private static PedidoManager instancia;
-    private List<String> pedidos;
+    private List<Pedido> pedidos;
 
     private PedidoManager() {
         pedidos = new ArrayList<>();
@@ -18,14 +20,14 @@ public class PedidoManager {
         return instancia;
     }
 
-    public void adicionarPedido(String pedido) {
+    public void adicionarPedido(Pedido pedido) {
         pedidos.add(pedido);
     }
 
     public void listarPedidos() {
         System.out.println("Fila de pedidos:");
-        for (String pedido : pedidos) {
-            System.out.println("- " + pedido);
+        for (Pedido pedido : pedidos) {
+            System.out.println("Cliente: " + pedido.nomeCliente() + "/ Sorvete: " + pedido.sorvetePedido());
         }
     }
 }
