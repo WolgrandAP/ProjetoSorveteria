@@ -31,10 +31,11 @@ public class Main {
         // Criando o pedido e associando ao cliente
         Pedido pedido1 = new Pedido(sorvete1Adc2, cliente1);
 
+        System.out.println();
 
         //----------------------------------------------------------------------------------------------------------------------------------
 
-        System.out.println("oi");
+
         // Segundo Cliente
         Cliente cliente2 = new Cliente("João");
         notifier.adicionarCliente(cliente2);
@@ -45,7 +46,7 @@ public class Main {
 
         Pedido pedido2 = new Pedido(sorvete2Adc1,cliente2);
 
-        System.out.println("oi");
+        System.out.println();
         //-----------------------------------------------------------------------------------------------------------------------------------
 
         // Notificando o cliente
@@ -64,13 +65,17 @@ public class Main {
         pedido1.avancarEstado();
         System.out.println(pedido1.getEstadoAtual());
         pedido1.avancarEstado();
-        System.out.println(pedido1.getEstadoAtual() + "\n");
+        System.out.println(pedido1.getEstadoAtual());
+
+        System.out.println();
 
         // Imprimindo resumo completo
         System.out.println("Resumo dos Pedidos:");
         System.out.println(pedido1);
         System.out.println("--------------------");
         System.out.println(pedido2);
+
+        System.out.println();
 
         PedidoRepository repo = new PedidoRepository();
         repo.salvarPedido("Pedido finalizado: " + pedido1.getSorvete().getDescricao() + " - R$" + pedido1.getSorvete().getPreco());
