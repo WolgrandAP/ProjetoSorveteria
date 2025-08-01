@@ -7,7 +7,7 @@ import model.Pedido;
 import observer.Cliente;
 import observer.PedidoNotifier;
 import repository.PedidoRepository;
-import config.PedidoManager;
+import singleton.PedidoManager;
 
 //Modificar a lógica de desconto linkando com o pedido
 

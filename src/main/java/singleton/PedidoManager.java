@@ -1,4 +1,4 @@
-package config;
+package singleton;
 
 import model.Pedido;
 

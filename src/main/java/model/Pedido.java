@@ -10,16 +10,24 @@ public class Pedido {
 
     private Sorvete sorvete;
     private Cliente cliente;
-    private DescontoFrequente descontoFreq = new DescontoFrequente();
-    private DescontoSazonal descontoSaz = new DescontoSazonal();
-    private boolean isDescontoFrequente;
+    private Desconto desconto; // Pode ser null (sem desconto)
     private PedidoContexto contexto;
 
+    //Sem desconto
+    public Pedido(Sorvete sorvete, Cliente cliente) {
+        this(sorvete, cliente, null);
+    }
+
+    //Com desconto
     public Pedido(Sorvete sorvete, Cliente cliente, boolean isDescontoFrequente) {
+        this(sorvete, cliente, isDescontoFrequente ? new DescontoFrequente() : new DescontoSazonal());
+    }
+
+    private Pedido(Sorvete sorvete, Cliente cliente, Desconto desconto) {
         this.sorvete = sorvete;
         this.cliente = cliente;
-        this.isDescontoFrequente = isDescontoFrequente;
-        this.contexto = new PedidoContexto(); // estado inicial: Recebido
+        this.desconto = desconto;
+        this.contexto = new PedidoContexto();
     }
 
     public Sorvete getSorvete() {
@@ -50,21 +58,15 @@ public class Pedido {
         return sorvete.getDescricao();
     }
 
-    public double aplicarDesconto(Double valor) {
-        if (isDescontoFrequente) {
-            return descontoFreq.aplicarDesconto(valor);
-        } else {
-            return descontoSaz.aplicarDesconto(valor);
-        }
+    public double aplicarDesconto(double valor) {
+        return (desconto != null) ? desconto.aplicarDesconto(valor) : valor;
     }
 
     @Override
     public String toString() {
         return "Cliente: " + cliente.getNome() +
                 "\nPedido: " + sorvete.getDescricao() +
-                "\nPreço: R$" + aplicarDesconto(sorvete.getPreco()) +
+                String.format("\nPreço: R$%.2f", aplicarDesconto(sorvete.getPreco())) +
                 "\nEstado: " + contexto.getEstadoAtual();
     }
 }
-
-
