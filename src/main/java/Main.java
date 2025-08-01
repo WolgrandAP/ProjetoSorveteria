@@ -22,14 +22,14 @@ public class Main {
 
         // Criando o sorvete
         SorveteriaFacade facade = new SorveteriaFacade();
-        Sorvete sorveteBase1 = facade.fazerPedido("massa", true); //Modificar o desconto
+        Sorvete sorveteBase1 = facade.fazerPedido("massa"); //Modificar o desconto
 
         // Adicionando calda e granulado
         SorveteDecorator sorvete1Adc1 = new Calda(sorveteBase1);
         SorveteDecorator sorvete1Adc2 = new Granulado(sorvete1Adc1);
 
         // Criando o pedido e associando ao cliente
-        Pedido pedido1 = new Pedido(sorvete1Adc2, cliente1);
+        Pedido pedido1 = new Pedido(sorvete1Adc2, cliente1,true);
 
         System.out.println();
 
@@ -40,11 +40,11 @@ public class Main {
         Cliente cliente2 = new Cliente("João");
         notifier.adicionarCliente(cliente2);
 
-        Sorvete sorveteBase2 = facade.fazerPedido("milkshake",false);
+        Sorvete sorveteBase2 = facade.fazerPedido("milkshake");
 
         SorveteDecorator sorvete2Adc1 = new Granulado(sorveteBase2);
 
-        Pedido pedido2 = new Pedido(sorvete2Adc1,cliente2);
+        Pedido pedido2 = new Pedido(sorvete2Adc1,cliente2, false);
 
         System.out.println();
         //-----------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ public class Main {
 
         System.out.println();
 
-        // Imprimindo resumo completo
+        //Imprimindo resumo completo
         System.out.println("Resumo dos Pedidos:");
         System.out.println(pedido1);
         System.out.println("--------------------");
