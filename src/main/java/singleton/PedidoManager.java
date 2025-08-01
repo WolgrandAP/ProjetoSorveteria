@@ -24,6 +24,14 @@ public class PedidoManager {
         pedidos.add(pedido);
     }
 
+    public void removerPedido(Pedido pedido) {
+        if (pedidos.remove(pedido)) {
+            System.out.println("Pedido de " + pedido.nomeCliente() + " removido da fila.");
+        } else {
+            System.out.println("Pedido não encontrado na fila.");
+        }
+    }
+
     public void listarPedidos() {
         System.out.println("Fila de pedidos:");
         for (Pedido pedido : pedidos) {

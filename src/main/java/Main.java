@@ -1,3 +1,5 @@
+import command.PedidoCommand;
+import command.RealizarPedido;
 import decorator.Calda;
 import decorator.Granulado;
 import decorator.SorveteDecorator;
@@ -7,60 +9,38 @@ import model.Pedido;
 import observer.Cliente;
 import observer.PedidoNotifier;
 import repository.PedidoRepository;
-import singleton.PedidoManager;
-
-//Modificar a lógica de desconto linkando com o pedido
 
 public class Main {
     public static void main(String[] args) {
 
-        PedidoNotifier notifier = new PedidoNotifier();
-
-        // Primeiro Cliente
-        Cliente cliente1 = new Cliente("Maria");
-        notifier.adicionarCliente(cliente1);
-
-        // Criando o sorvete
         SorveteriaFacade facade = new SorveteriaFacade();
-        Sorvete sorveteBase1 = facade.fazerPedido("massa"); //Modificar o desconto
 
-        // Adicionando calda e granulado
-        SorveteDecorator sorvete1Adc1 = new Calda(sorveteBase1);
-        SorveteDecorator sorvete1Adc2 = new Granulado(sorvete1Adc1);
+        // Cliente 1
+        Cliente cliente1 = new Cliente("Maria");
 
-        // Criando o pedido e associando ao cliente
-        Pedido pedido1 = new Pedido(sorvete1Adc2, cliente1,true);
+        Sorvete sorveteBase1 = facade.fazerPedido("massa");
+        Sorvete sorveteDecorado1 = new Granulado(new Calda(sorveteBase1));
 
-        System.out.println();
+        Pedido pedido1 = new Pedido(sorveteDecorado1, cliente1, true);
 
-        //----------------------------------------------------------------------------------------------------------------------------------
-
-
-        // Segundo Cliente
+        //  Cliente 2
         Cliente cliente2 = new Cliente("João");
-        notifier.adicionarCliente(cliente2);
 
         Sorvete sorveteBase2 = facade.fazerPedido("milkshake");
+        Sorvete sorveteDecorado2 = new Granulado(sorveteBase2);
 
-        SorveteDecorator sorvete2Adc1 = new Granulado(sorveteBase2);
+        Pedido pedido2 = new Pedido(sorveteDecorado2, cliente2, false);
 
-        Pedido pedido2 = new Pedido(sorvete2Adc1,cliente2, false);
+        //Comandos
+        PedidoCommand comando1 = new RealizarPedido(pedido1);
+        PedidoCommand comando2 = new RealizarPedido(pedido2);
+
+        comando1.executar();
+        comando2.executar();
 
         System.out.println();
-        //-----------------------------------------------------------------------------------------------------------------------------------
 
-        // Notificando o cliente
-        notifier.notificar("Seu pedido foi recebido e está sendo preparado\n");
-
-        // Registrando na fila de pedidos
-        PedidoManager pedidoManager = PedidoManager.getInstance();
-        pedidoManager.adicionarPedido(pedido1);
-        pedidoManager.adicionarPedido(pedido2);
-        pedidoManager.listarPedidos();
-        System.out.println();
-
-        // Estados do pedido
-        System.out.println("Estados do pedido:");
+        // Estados do pedido ded Maria
         System.out.println(pedido1.getEstadoAtual());
         pedido1.avancarEstado();
         System.out.println(pedido1.getEstadoAtual());
@@ -69,7 +49,7 @@ public class Main {
 
         System.out.println();
 
-        //Imprimindo resumo completo
+        // Resumo dos pedidos
         System.out.println("Resumo dos Pedidos:");
         System.out.println(pedido1);
         System.out.println("--------------------");
@@ -77,8 +57,14 @@ public class Main {
 
         System.out.println();
 
-        PedidoRepository repo = new PedidoRepository();
-        repo.salvarPedido("Pedido finalizado: " + pedido1.getSorvete().getDescricao() + " - R$" + pedido1.getSorvete().getPreco());
 
+        comando1.desfazer();
+
+
+        System.out.println();
+
+
+        PedidoRepository repo = new PedidoRepository();
+        repo.salvarPedido("Pedido finalizado: " + pedido1.getSorvete().getDescricao() + " - R$" + pedido1.aplicarDesconto(pedido1.getSorvete().getPreco()));
     }
 }

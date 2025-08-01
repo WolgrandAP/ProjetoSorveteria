@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoRepository {
-    private List<String> pedidos = new ArrayList<>();
+    private List<String> históricoPedidos = new ArrayList<>();
 
     public void salvarPedido(String pedido) {
-        pedidos.add(pedido);
+        históricoPedidos.add(pedido);
     }
 
     public List<String> getPedidos() {
-        return pedidos;
+        return históricoPedidos;
     }
 }
