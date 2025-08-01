@@ -9,6 +9,7 @@ import observer.PedidoNotifier;
 import repository.PedidoRepository;
 import config.PedidoManager;
 
+//Modificar a lógica de desconto linkando com o pedido
 
 public class Main {
     public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class Main {
 
         // Criando o sorvete
         SorveteriaFacade facade = new SorveteriaFacade();
-        Sorvete sorveteBase1 = facade.fazerPedido("massa", true);
+        Sorvete sorveteBase1 = facade.fazerPedido("massa", true); //Modificar o desconto
 
         // Adicionando calda e granulado
         SorveteDecorator sorvete1Adc1 = new Calda(sorveteBase1);
